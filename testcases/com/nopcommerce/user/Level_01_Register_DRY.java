@@ -17,6 +17,7 @@ public class Level_01_Register_DRY {
 	String emailAddress;
 	String projectPath = System.getProperty("user.dir");
 
+
 	@BeforeClass
 	public void beforeClass() {
 
