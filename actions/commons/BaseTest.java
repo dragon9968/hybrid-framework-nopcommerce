@@ -1,12 +1,12 @@
 package commons;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.Parameters;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -39,5 +39,10 @@ public class BaseTest {
 		driverBaseTest.get("https://demo.nopcommerce.com/");
 
 		return driverBaseTest;
+	}
+	
+	protected int generateRandomNumber() {
+		Random rand = new Random();
+		return rand.nextInt(99999);
 	}
 }

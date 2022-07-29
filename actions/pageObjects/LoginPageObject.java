@@ -11,10 +11,13 @@ public class LoginPageObject extends BasePage {
 	public LoginPageObject(WebDriver driver) {
 		this.driver = driver;
 	}
-
-	public void clickToLoginButton() {
+	
+	
+//Có return class object để apply cho Page_Generator 2,3
+	public  HomePageObject clickToLoginButton() {
 		waitForElementClickable(driver, LoginPageUI.LOGIN_BUTTON);
 		clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
+		return PageGeneratorManager.getHomePage(driver);
 	}
 
 	public void inputToEmailTexbox(String Email) {
