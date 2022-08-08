@@ -3,11 +3,11 @@ package com.nopcommerce.user;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
-import pageObjects.HomePageObject;
-import pageObjects.LoginPageObject;
-import pageObjects.CustomerInfoPageObject;
-import pageObjects.PageGeneratorManager;
-import pageObjects.RegisterPageObject;
+import commons.PageGeneratorManager;
+import pageObjects.nopCommerce.user.UserCustomerInfoPageObject;
+import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserLoginPageObject;
+import pageObjects.nopCommerce.user.UserRegisterPageObject;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -24,10 +24,10 @@ public class Level_06_Page_Generator_Manager_III extends BaseTest {
 	private WebDriver driver;
 	private String existingEmail, invalidEmail, notFoundEmail, firstName, lastName;
 	//private String projectPath = System.getProperty("user.dir");
-	private HomePageObject homePage;
-	private RegisterPageObject registerPage;
-	private LoginPageObject loginPage;
-	private CustomerInfoPageObject customerInfoPage;
+	private UserHomePageObject homePage;
+	private UserRegisterPageObject registerPage;
+	private UserLoginPageObject loginPage;
+	private UserCustomerInfoPageObject customerInfoPage;
 	
 	@Parameters("browser")
 	@BeforeClass
@@ -47,7 +47,7 @@ public class Level_06_Page_Generator_Manager_III extends BaseTest {
 		System.out.println("Pre-Condition - Step 01: Click to Register link");
 		
 
-		registerPage = homePage.clickToRegisterLink();
+		registerPage = homePage.openRegisterPage();
 
 		System.out.println("Pre-Condition - Step 02: Input to required fields");
 		registerPage.inputToFirstnameTextbox("firstName");
@@ -75,7 +75,7 @@ public class Level_06_Page_Generator_Manager_III extends BaseTest {
 	public void Login_01_Empty_Data() {
 		
 		// Từ trang Home - Click Login link -> Qa trang Login
-		loginPage = homePage.clickToLoginLink();
+		loginPage = homePage.openLoginPage();
 		loginPage.clickToLoginButton();
 		
 		Assert.assertEquals(loginPage.getErrorMessageAtEmailTextbox(), "Please enter your email");
@@ -84,7 +84,7 @@ public class Level_06_Page_Generator_Manager_III extends BaseTest {
 
 	@Test
 	public void Login_02_Invalid_Email() {
-		loginPage = homePage.clickToLoginLink();
+		loginPage = homePage.openLoginPage();
 		loginPage.inputToEmailTexbox(invalidEmail);
 
      	loginPage.clickToLoginButton();
@@ -95,7 +95,7 @@ public class Level_06_Page_Generator_Manager_III extends BaseTest {
 
 	@Test
 	public void Login_03_Email_Not_Found() {
-		loginPage = homePage.clickToLoginLink();
+		loginPage = homePage.openLoginPage();
 
 		loginPage.inputToEmailTexbox(notFoundEmail);
 		
@@ -107,7 +107,7 @@ public class Level_06_Page_Generator_Manager_III extends BaseTest {
 
 	@Test
 	public void Login_04_Existing_Email_Empty_Password() {
-		loginPage = homePage.clickToLoginLink();
+		loginPage = homePage.openLoginPage();
 
 		loginPage.inputToEmailTexbox(existingEmail);
 		loginPage.inputToPasswordTexbox("");
@@ -120,7 +120,7 @@ public class Level_06_Page_Generator_Manager_III extends BaseTest {
 
 	@Test
 	public void Login_05_Existing_Email_Incorrect_Password() {
-		loginPage = homePage.clickToLoginLink();
+		loginPage = homePage.openLoginPage();
 
 		loginPage.inputToEmailTexbox(existingEmail);
 		loginPage.inputToPasswordTexbox("123457");
@@ -134,7 +134,7 @@ public class Level_06_Page_Generator_Manager_III extends BaseTest {
     @Test
 	public void Login_06_Valid_Login() {
 		
-		loginPage = homePage.clickToLoginLink();
+		loginPage = homePage.openLoginPage();
 
 		loginPage.inputToEmailTexbox(existingEmail);
 		loginPage.inputToPasswordTexbox("123456");
@@ -147,7 +147,7 @@ public class Level_06_Page_Generator_Manager_III extends BaseTest {
         //homePage.clickToMyAccountLink();
         //myAcountPage = new MyAccountPageObject(driver);
         
-        customerInfoPage = homePage.clickToMyAccountLink();
+        customerInfoPage = homePage.openMyAccountPage();
         
         
         Assert.assertTrue(customerInfoPage.isCustomerInfoTitleDisplay());	

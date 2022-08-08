@@ -12,7 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import commons.BasePage;
-import pageObjects.HomePageObject;
+import pageObjects.nopCommerce.user.UserHomePageObject;
 
 public class Level_02_Apply_BasePage_III extends BasePage {
 	WebDriver driver;

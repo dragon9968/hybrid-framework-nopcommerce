@@ -36,7 +36,7 @@ public class BaseTest {
 		}
 		
 		driverBaseTest.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		driverBaseTest.get("https://demo.nopcommerce.com/");
+		driverBaseTest.get(GlobalConstants.PORTAL_PAGE_URL);
 
 		return driverBaseTest;
 	}
@@ -44,5 +44,16 @@ public class BaseTest {
 	protected int generateRandomNumber() {
 		Random rand = new Random();
 		return rand.nextInt(99999);
+	}
+	
+	
+	public void sleepInSecond(long timeInSecond) {
+		try {
+			Thread.sleep(timeInSecond * 1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

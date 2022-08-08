@@ -1,6 +1,10 @@
 package com.nopcommerce.user;
 
 import org.testng.annotations.Test;
+
+import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserRegisterPageObject;
+
 import org.testng.annotations.BeforeClass;
 
 import java.util.Random;
@@ -10,15 +14,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import pageObjects.HomePageObject;
-import pageObjects.RegisterPageObject;
 
 public class Level_03_Page_Object_01_Register{
 	private WebDriver driver;
 	private String emailAddress;
 	private String projectPath = System.getProperty("user.dir");
-	private HomePageObject homePage;
-	private RegisterPageObject registerPage;
+	private UserHomePageObject homePage;
+	private UserRegisterPageObject registerPage;
 
 	@BeforeClass
 	public void beforeClass() {
@@ -26,7 +28,7 @@ public class Level_03_Page_Object_01_Register{
 		driver = new FirefoxDriver();
 		
 		// Home Page
-        homePage = new HomePageObject(driver);
+        homePage = new UserHomePageObject(driver);
 		emailAddress = "long" + generateRandomNumber() + "@qa.team";
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		// driver.manage().window().maximize();
@@ -36,10 +38,10 @@ public class Level_03_Page_Object_01_Register{
 	@Test
 	public void Register_01_Empty_Data() {
 		System.out.println("Register_01 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 
 		// Click Register Link nhảy qa trang Register
-        registerPage = new RegisterPageObject(driver);
+        registerPage = new UserRegisterPageObject(driver);
 
 		System.out.println("Register_01 - Step 02: Click Register button ");
 		registerPage.clickToRegisterButton();
@@ -55,10 +57,10 @@ public class Level_03_Page_Object_01_Register{
 	@Test
 	public void Register_02_Invalid_Email() {
 		System.out.println("Register_02 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 		
 		// Click Register Link nhảy qa trang Register
-        registerPage = new RegisterPageObject(driver);
+        registerPage = new UserRegisterPageObject(driver);
 
 		System.out.println("Register_02 - Step 02: Input to required fields");
 		registerPage.inputToFirstnameTextbox("Automation");
@@ -78,10 +80,10 @@ public class Level_03_Page_Object_01_Register{
 	@Test
 	public void Register_03_Success() {
 		System.out.println("Register_03 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 		
 		// Click Register Link nhảy qa trang Register
-        registerPage = new RegisterPageObject(driver);
+        registerPage = new UserRegisterPageObject(driver);
 
 		System.out.println("Register_03 - Step 02: Input to required fields");
 		registerPage.inputToFirstnameTextbox("Automation");
@@ -104,10 +106,10 @@ public class Level_03_Page_Object_01_Register{
 	@Test
 	public void Register_04_Existing_Email() {
 		System.out.println("Register_04 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 		
 		// Click Register Link nhảy qa trang Register
-        registerPage = new RegisterPageObject(driver);
+        registerPage = new UserRegisterPageObject(driver);
 
 		System.out.println("Register_04 - Step 02: Input to required fields");
 		registerPage.inputToFirstnameTextbox("Automation");
@@ -127,10 +129,10 @@ public class Level_03_Page_Object_01_Register{
 	@Test
 	public void Register_05_Password_Less_Than_6_Chars() {
 		System.out.println("Register_05 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 		
 		// Click Register Link nhảy qa trang Register
-        registerPage = new RegisterPageObject(driver);
+        registerPage = new UserRegisterPageObject(driver);
 
 		System.out.println("Register_05 - Step 02: Input to required fields");
 		registerPage.inputToFirstnameTextbox("Automation");
@@ -151,10 +153,10 @@ public class Level_03_Page_Object_01_Register{
 	@Test
 	public void Register_06_Invalid_Confirm_Password() {
 		System.out.println("Register_06 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 		
 		// Click Register Link nhảy qa trang Register
-        registerPage = new RegisterPageObject(driver);
+        registerPage = new UserRegisterPageObject(driver);
 
 		System.out.println("Register_06 - Step 02: Input to required fields");
 		registerPage.inputToFirstnameTextbox("Automation");

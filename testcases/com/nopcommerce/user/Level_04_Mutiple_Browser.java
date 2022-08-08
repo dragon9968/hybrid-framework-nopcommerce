@@ -3,6 +3,8 @@ package com.nopcommerce.user;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
+import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserRegisterPageObject;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -16,15 +18,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import pageObjects.HomePageObject;
-import pageObjects.RegisterPageObject;
 
 public class Level_04_Mutiple_Browser extends BaseTest{
 	private WebDriver driver_Test_Case;
 	private String emailAddress;
 	//private String projectPath = System.getProperty("user.dir");
-	private HomePageObject homePage;
-	private RegisterPageObject registerPage;
+	private UserHomePageObject homePage;
+	private UserRegisterPageObject registerPage;
 
 	@Parameters("browser")
 	@BeforeClass
@@ -33,7 +33,7 @@ public class Level_04_Mutiple_Browser extends BaseTest{
 		driver_Test_Case = getBrowserName(browserame);
 	    
 		// Home Page
-        homePage = new HomePageObject(driver_Test_Case);
+        homePage = new UserHomePageObject(driver_Test_Case);
 		emailAddress = "long" + generateRandomNumber() + "@qa.team";
 
 	}
@@ -41,10 +41,10 @@ public class Level_04_Mutiple_Browser extends BaseTest{
 	@Test
 	public void Register_01_Empty_Data() {
 		System.out.println("Register_01 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 
 		// Click Register Link nhảy qa trang Register
-        registerPage = new RegisterPageObject(driver_Test_Case);
+        registerPage = new UserRegisterPageObject(driver_Test_Case);
 
 		System.out.println("Register_01 - Step 02: Click Register button ");
 		registerPage.clickToRegisterButton();
@@ -60,10 +60,10 @@ public class Level_04_Mutiple_Browser extends BaseTest{
 	@Test
 	public void Register_02_Invalid_Email() {
 		System.out.println("Register_02 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 		
 		// Click Register Link nhảy qa trang Register
-        registerPage = new RegisterPageObject(driver_Test_Case);
+        registerPage = new UserRegisterPageObject(driver_Test_Case);
 
 		System.out.println("Register_02 - Step 02: Input to required fields");
 		registerPage.inputToFirstnameTextbox("Automation");
@@ -83,10 +83,10 @@ public class Level_04_Mutiple_Browser extends BaseTest{
 	//@Test
 	public void Register_03_Success() {
 		System.out.println("Register_03 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 		
 		// Click Register Link nhảy qa trang Register
-        registerPage = new RegisterPageObject(driver_Test_Case);
+        registerPage = new UserRegisterPageObject(driver_Test_Case);
 
 		System.out.println("Register_03 - Step 02: Input to required fields");
 		registerPage.inputToFirstnameTextbox("Automation");
@@ -109,10 +109,10 @@ public class Level_04_Mutiple_Browser extends BaseTest{
 	//@Test
 	public void Register_04_Existing_Email() {
 		System.out.println("Register_04 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 		
 		// Click Register Link nhảy qa trang Register
-        registerPage = new RegisterPageObject(driver_Test_Case);
+        registerPage = new UserRegisterPageObject(driver_Test_Case);
 
 		System.out.println("Register_04 - Step 02: Input to required fields");
 		registerPage.inputToFirstnameTextbox("Automation");
@@ -132,10 +132,10 @@ public class Level_04_Mutiple_Browser extends BaseTest{
 	//@Test
 	public void Register_05_Password_Less_Than_6_Chars() {
 		System.out.println("Register_05 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 		
 		// Click Register Link nhảy qa trang Register
-        registerPage = new RegisterPageObject(driver_Test_Case);
+        registerPage = new UserRegisterPageObject(driver_Test_Case);
 
 		System.out.println("Register_05 - Step 02: Input to required fields");
 		registerPage.inputToFirstnameTextbox("Automation");
@@ -156,10 +156,10 @@ public class Level_04_Mutiple_Browser extends BaseTest{
 	//@Test
 	public void Register_06_Invalid_Confirm_Password() {
 		System.out.println("Register_06 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 		
 		// Click Register Link nhảy qa trang Register
-        registerPage = new RegisterPageObject(driver_Test_Case);
+        registerPage = new UserRegisterPageObject(driver_Test_Case);
 
 		System.out.println("Register_06 - Step 02: Input to required fields");
 		registerPage.inputToFirstnameTextbox("Automation");

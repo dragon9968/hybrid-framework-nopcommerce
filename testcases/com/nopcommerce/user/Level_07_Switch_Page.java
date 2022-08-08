@@ -3,11 +3,18 @@ package com.nopcommerce.user;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
-import pageObjects.HomePageObject;
-import pageObjects.LoginPageObject;
-import pageObjects.CustomerInfoPageObject;
-import pageObjects.PageGeneratorManager;
-import pageObjects.RegisterPageObject;
+import commons.PageGeneratorManager;
+import pageObjects.nopCommerce.user.UserAddressesPageObject;
+import pageObjects.nopCommerce.user.UserChangePassPageObject;
+import pageObjects.nopCommerce.user.UserCustomerInfoPageObject;
+import pageObjects.nopCommerce.user.UserDownloadProductsPageObject;
+import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserLoginPageObject;
+import pageObjects.nopCommerce.user.UserMyProductReviewPageObject;
+import pageObjects.nopCommerce.user.UserOrdersPageObject;
+import pageObjects.nopCommerce.user.UserRegisterPageObject;
+import pageObjects.nopCommerce.user.UserRewardPageObject;
+import pageObjects.nopCommerce.user.UserStockPageObject;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -24,10 +31,17 @@ public class Level_07_Switch_Page extends BaseTest {
 	private WebDriver driver;
 	private String existingEmail, invalidEmail, notFoundEmail, firstName, lastName;
 	//private String projectPath = System.getProperty("user.dir");
-	private HomePageObject homePage;
-	private RegisterPageObject registerPage;
-	private LoginPageObject loginPage;
-	private CustomerInfoPageObject customerInfoPage;
+	private UserHomePageObject homePage;
+	private UserRegisterPageObject registerPage;
+	private UserLoginPageObject loginPage;
+	private UserCustomerInfoPageObject customerInfoPage;
+	private UserAddressesPageObject addressPage;
+	private UserOrdersPageObject orderPage;
+	private UserDownloadProductsPageObject downloadProductPage;
+	private UserStockPageObject stockPage;
+	private UserRewardPageObject rewardPage;
+	private UserChangePassPageObject changePassPage;
+	private UserMyProductReviewPageObject myProductReviewPage;
 	
 	@Parameters("browser")
 	@BeforeClass
@@ -45,35 +59,12 @@ public class Level_07_Switch_Page extends BaseTest {
 		notFoundEmail = "longdaica@qa.team";
 
 		System.out.println("Pre-Condition - Step 01: Click to Register link");
-		
-
-		registerPage = homePage.clickToRegisterLink();
-
-		System.out.println("Pre-Condition - Step 02: Input to required fields");
-		registerPage.inputToFirstnameTextbox("firstName");
-		registerPage.inputToLastnameTextbox("lastName");
-		registerPage.inputToEmailTextbox(existingEmail);
-		registerPage.inputToPasswordTextbox("123456");
-		registerPage.inputToConfirmPasswordTextbox("123456");
-		System.out.println("Email registered is " + existingEmail);
-		
-		System.out.println("Pre-Condition - Step 03: Click Register button ");
-		registerPage.clickToRegisterButton();
-
-		System.out.println("Pre-Condition - Step 04: Verified success message displayed ");
-		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
-
-		System.out.println("Pre-Condition - Step 05: Click to Logout link");
-		
-		// Click logout thì bussiness nó sẽ quay về trang Home Page
-		homePage = registerPage.clickToLogoutLink();
-
 
 	}
 
-	//@Test
+	@Test
 	public void User_01_Register() {
-		registerPage = homePage.clickToRegisterLink();
+		registerPage = homePage.openRegisterPage();
 
 		registerPage.inputToFirstnameTextbox("firstName");
 		registerPage.inputToLastnameTextbox("lastName");
@@ -86,35 +77,47 @@ public class Level_07_Switch_Page extends BaseTest {
 	}
 
 	@Test
-	public void User_01_Login() {
-		loginPage = homePage.clickToLoginLink();
+	public void User_02_Login() {
+		loginPage = homePage.openLoginPage();
 		loginPage.inputToEmailTexbox(existingEmail);
 		loginPage.inputToPasswordTexbox("123456");
-		homePage = loginPage.clickToLoginButton();;
+		homePage = loginPage.clickToLoginButton();
         Assert.assertTrue(homePage.isMyAccountLinkDisplay());	
 
 	}
 
-	//@Test
-	public void Login_03_My_Account() {
-		customerInfoPage = homePage.clickToMyAccountLink();
+	@Test
+	public void User_03_My_Account() {
+		customerInfoPage = homePage.openMyAccountPage();
 		Assert.assertTrue(customerInfoPage.isCustomerInfoTitleDisplay());	
 	}
 	
 
-	//@Test
-	public void Login_04_Switch_User() {
+	@Test
+	public void User_04_Switch_User() {
 		// Customer Info -> Address
+		addressPage = customerInfoPage.openAddressesPage(driver);
+		sleepInSecond(1);
 
-		// Address -> My Product Review
+		// Address -> Rewards
+		rewardPage = addressPage.openRewardPointPage(driver);
+		sleepInSecond(1);
 
-		// My Product Review -> Reward Point
+		// Rewards -> Customer Info
+		customerInfoPage = rewardPage.openCustomerInfoPage(driver);
+		sleepInSecond(1);
 
-		// Reward Point -> Address
-		
-		// Address -> Reward Point
-		
-		// Reward Point -> My Product Review
+		// Customer Info -> Change Pass
+		changePassPage = customerInfoPage.openChangePassPage(driver);
+		sleepInSecond(1);
+
+		// Change Pass -> My Product
+		myProductReviewPage = changePassPage.openMyProductPage(driver);
+		sleepInSecond(1);
+
+		// My Product -> Download
+		downloadProductPage = myProductReviewPage.openDownLoadProductPage(driver);
+		sleepInSecond(1);
 	}
 
 	

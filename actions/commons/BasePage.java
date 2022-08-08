@@ -16,6 +16,15 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import net.bytebuddy.asm.Advice.Return;
+import pageObjects.nopCommerce.user.UserAddressesPageObject;
+import pageObjects.nopCommerce.user.UserChangePassPageObject;
+import pageObjects.nopCommerce.user.UserCustomerInfoPageObject;
+import pageObjects.nopCommerce.user.UserDownloadProductsPageObject;
+import pageObjects.nopCommerce.user.UserMyProductReviewPageObject;
+import pageObjects.nopCommerce.user.UserOrdersPageObject;
+import pageObjects.nopCommerce.user.UserRewardPageObject;
+import pageObjects.nopCommerce.user.UserStockPageObject;
+import pageUIs.nopCommerce.user.BasePageUI;
 
 public class BasePage {
 	
@@ -336,6 +345,59 @@ public class BasePage {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public UserCustomerInfoPageObject openCustomerInfoPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.CUSTOMER_INFO_LINK);
+		clickToElement(driver, BasePageUI.CUSTOMER_INFO_LINK);
+		return new UserCustomerInfoPageObject(driver);
+		
+	}
+	public UserAddressesPageObject openAddressesPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.ADDRESSES_LINK);
+		clickToElement(driver, BasePageUI.ADDRESSES_LINK);
+		return new UserAddressesPageObject(driver);
+		//return PageGeneratorManager.getAddressesPagePage(driver);
+	}
+
+
+	public UserOrdersPageObject openOrderPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.ORDERS_LINK);
+		clickToElement(driver, BasePageUI.ORDERS_LINK);
+		return new UserOrdersPageObject(driver);
+		
+	}
+	
+	public UserDownloadProductsPageObject openDownLoadProductPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.DOWNLOAD_PRODUCTS_LINK);
+		clickToElement(driver, BasePageUI.DOWNLOAD_PRODUCTS_LINK);
+		return new UserDownloadProductsPageObject(driver);
+		
+	}
+	
+	public UserStockPageObject openStockPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.STOCK_LINK);
+		clickToElement(driver, BasePageUI.STOCK_LINK);
+		return new UserStockPageObject(driver);
+		
+	}
+	
+	public UserRewardPageObject openRewardPointPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.REWARD_POINT_LINK);
+		clickToElement(driver, BasePageUI.REWARD_POINT_LINK);
+		return new UserRewardPageObject(driver);
+	}
+	
+	public UserChangePassPageObject openChangePassPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.CHANGE_PASS_LINK);
+		clickToElement(driver, BasePageUI.REWARD_POINT_LINK);
+		return new UserChangePassPageObject(driver);
+	}
+	
+	public UserMyProductReviewPageObject openMyProductPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.MY_PRODUCT_REVIEW_LINK);
+		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEW_LINK);
+		return new UserMyProductReviewPageObject(driver);
 	}
 	
 }
