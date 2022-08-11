@@ -70,27 +70,37 @@ public class Level_08_Switch_Role extends BaseTest {
 	}
 
 	@Test
-	public void Role_01_User() {
+	public void Role_01_User_To_Admin() {
 		userLoginPage = userHomePage.openLoginPage();
 		userHomePage = userLoginPage.loginAsUser(userEmail, userPassword);
 		Assert.assertTrue(userHomePage.isMyAccountLinkDisplay());
-	}
-
-	@Test
-	public void Role_02_Admin() {
+	    userHomePage.clickToUserLogoutLink(driver);
 	    userHomePage.openPageUrl(driver, GlobalConstants.ADMIN_PAGE_URL);
-	    adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
+        adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
 	    
 	    //Login As Admin Role
 	    adminDashBoardPage= adminLoginPage.loginAsAdmin(adminEmail, adminPassword);
-	   // adminDashBoardPage = PageGeneratorManager.getAdminDashboardPage(driver);   
+	    
+	    // AdminDashBoardPage = PageGeneratorManager.getAdminDashboardPage(driver);   
 	    Assert.assertTrue(adminDashBoardPage.isDashBoardHeaderDisplay());
+	    
+	    // Dashboard Page -> Logout -> Login Page
+	    adminDashBoardPage.clickToAdminLogoutLink(driver);
+
 	}
 	
 	@Test
-	public void Role_03_Switch_Back_To_User() {
-		adminDashBoardPage.openPageUrl(driver, GlobalConstants.PORTAL_PAGE_URL);
-		userHomePage.isMyAccountLinkDisplay();
+	public void Role_02_Admin_To_User() {
+		//Login Page (Admin) -> Open User url -> Home Page (User)
+		adminLoginPage.openPageUrl(driver, GlobalConstants.PORTAL_PAGE_URL);
+		userHomePage = PageGeneratorManager.getHomePage(driver);
+		
+		//Home Pagê -> Login Page (User)
+		userLoginPage = userHomePage.openLoginPage();
+		userHomePage = userLoginPage.loginAsUser(userEmail, userPassword);
+
+		Assert.assertTrue(userHomePage.isMyAccountLinkDisplay());
+		
 		customerInfoPage = userHomePage.openMyAccountPage();
 		sleepInSecond(2);
 		addressPage = customerInfoPage.openAddressesPage(driver);
