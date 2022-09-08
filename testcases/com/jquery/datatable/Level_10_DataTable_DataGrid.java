@@ -62,7 +62,7 @@ public class Level_10_DataTable_DataGrid extends BaseTest {
 	}
 	
 
-	@Test
+	//@Test
 	public void Table_03_Get_Value_Of_Each_Page() {
 		actualEachRowAtAllPage = homePage.getValueEachRowAtAllPage();
 		for (String valueEachRow : actualEachRowAtAllPage) {
@@ -71,9 +71,38 @@ public class Level_10_DataTable_DataGrid extends BaseTest {
 		
 		
 	}
-	
+	@Test
 	public void Table_04_Enter_To_Textbox_At_Any_Row() {
-		homePage.enterToTextboxByColumnNameAtRowNumber("Album","1","Michales97");
+		
+		homePage.clickToLoadButton();
+		sleepInSecond(1);
+		
+		homePage.enterToTextboxByColumnNameAtRowNumber("Album","5","Dinh Long");
+		sleepInSecond(1);
+		
+		homePage.enterToTextboxByColumnNameAtRowNumber("Artist","2","Misa");
+		sleepInSecond(1);
+
+		homePage.enterToTextboxByColumnNameAtRowNumber("Year","4","1986");
+		sleepInSecond(1);
+
+		homePage.enterToTextboxByColumnNameAtRowNumber("Price","1","300");
+		sleepInSecond(1);
+		
+		homePage.selectDropDownByColumnNameAtRowNumber("Origin", "1", "Japan");
+		sleepInSecond(1);
+		
+		homePage.checkToCheckboxByColumnNameAtRowNumber("With Poster?", "3");
+		homePage.checkToCheckboxByColumnNameAtRowNumber("With Poster?", "5");
+		homePage.uncheckToCheckboxByColumnNameAtRowNumber("With Poster?", "1");
+		homePage.uncheckToCheckboxByColumnNameAtRowNumber("With Poster?", "2");
+		homePage.uncheckToCheckboxByColumnNameAtRowNumber("With Poster?", "4");
+
+		homePage.clickToIconByRowNumber("1", "Remove Current Row");
+		homePage.clickToIconByRowNumber("1", "Insert Row Above");
+		homePage.clickToIconByRowNumber("3", "Move Up");
+		
+
 	}
 	
 
