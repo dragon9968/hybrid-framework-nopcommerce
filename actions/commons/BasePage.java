@@ -1,7 +1,9 @@
 package commons;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.management.RuntimeErrorException;
 
@@ -9,6 +11,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -32,7 +35,6 @@ import pageObjects.nopCommerce.user.UserStockPageObject;
 import pageUIs.nopCommerce.user.BasePageUI;
 
 public  class BasePage {
-	
 	
 	public static BasePage getBasePage() {
 		return new BasePage();
@@ -231,7 +233,7 @@ public  class BasePage {
 	public void selectItemInCustomDropDown(WebDriver driver , String parentXpath , String childXpath , String expectedTextItem){
 		getWebElement(driver,parentXpath).click();
 		sleepInSecond(1);
-		WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		WebDriverWait explicitWait = new WebDriverWait(driver, LONG_TIMEOUT);
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 		
 		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByLocator(childXpath)));  
@@ -250,7 +252,7 @@ public  class BasePage {
 	public void selectItemInCustomDropDown(WebDriver driver , String parentXpath , String childXpath , String expectedTextItem,String... dynamicValues ){
 		getWebElement(driver,getDynamicXpath(expectedTextItem, dynamicValues)).click();
         sleepInSecond(1);
-        WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+        WebDriverWait explicitWait = new WebDriverWait(driver, LONG_TIMEOUT);
     	JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
     	
         explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByLocator(getDynamicXpath(expectedTextItem, dynamicValues))));  
@@ -324,9 +326,53 @@ public  class BasePage {
 		}
 	}
 	
-	public boolean isElementDisplayed(WebDriver driver, String locatorType) {
-		return getWebElement(driver, locatorType).isDisplayed();
+	
+	public void overrideImplicitTimeout(WebDriver driver , long timeOut) {
+		driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
+
 	}
+	
+	
+	
+	public boolean isElementDisplayed(WebDriver driver, String locatorType) {
+			return getWebElement(driver, locatorType).isDisplayed();
+
+	}
+	
+	public boolean isElementUndisplayed(WebDriver driver, String locatorType) {
+		System.out.println("Start Time = " + new Date().toString());
+		overrideImplicitTimeout(driver,SHORT_TIMEOUT);
+		
+		List<WebElement> elements = getListWebElement(driver, locatorType);
+		overrideImplicitTimeout(driver,LONG_TIMEOUT);
+
+		if (elements.size() == 0) {
+			System.out.println("Case 3 - Element ko co trong DOM");
+			System.out.println("End Time = " + new Date().toString());
+			return true;
+
+		} else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
+			System.out.println("Case 2 - Element co trong DOM nhung ko hien thi tren UI");
+			System.out.println("End Time = " + new Date());
+			return true;
+		}
+		else {
+			System.out.println("Case 1 - Element co trong DOM va hien thi tren UI");
+			return false;
+		}
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public boolean isElementDisplayed(WebDriver driver, String locatorType ,String... dynamicValues) {
 		return getWebElement(driver, getDynamicXpath(locatorType, dynamicValues)).isDisplayed();
@@ -442,57 +488,64 @@ public  class BasePage {
 	
 	
 	public void waitForElementVisible(WebDriver driver, String locatorType) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		WebDriverWait explicitWait = new WebDriverWait(driver, LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByLocator(locatorType)));
 	}
 	
 	public void waitForElementVisible(WebDriver driver, String locatorType,String... dynamicValues) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		WebDriverWait explicitWait = new WebDriverWait(driver, LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByLocator(getDynamicXpath(locatorType, dynamicValues))));
 	}
 	
 	public void waitForAllElementVisible(WebDriver driver, String locatorType) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		WebDriverWait explicitWait = new WebDriverWait(driver, LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(locatorType)));
 	}
 	
 	public void waitForAllElementVisible(WebDriver driver, String locatorType, String... dynamicValues) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		WebDriverWait explicitWait = new WebDriverWait(driver, LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(getDynamicXpath(locatorType, dynamicValues))));
 	}
 	
 	public void waitForElementInvisible(WebDriver driver, String locatorType) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		WebDriverWait explicitWait = new WebDriverWait(driver,LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(locatorType)));
 	}
 	
+   // Wait for Element undisplayed in DOM or not in DOM and override implicit timeout
+	public void waitForElementUndisplayed(WebDriver driver, String locatorType) {
+		WebDriverWait explicitWait = new WebDriverWait(driver,SHORT_TIMEOUT);
+		overrideImplicitTimeout(driver, SHORT_TIMEOUT);
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(locatorType)));
+		overrideImplicitTimeout(driver, LONG_TIMEOUT);
+	}
+	
+	
 	public void waitForElementInvisible(WebDriver driver, String locatorType, String... dynamicValues) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		WebDriverWait explicitWait = new WebDriverWait(driver, LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(getDynamicXpath(locatorType, dynamicValues))));
 	}
 	
 	public void waitForAllElementInvisible(WebDriver driver, String locatorType) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		WebDriverWait explicitWait = new WebDriverWait(driver, LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver,locatorType)));
 	}
 	
 	public void waitForAllElementInvisible(WebDriver driver, String locatorType, String... dynamicValues) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		WebDriverWait explicitWait = new WebDriverWait(driver, LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver,getDynamicXpath(locatorType, dynamicValues))));
 	}
 	
 	public void waitForElementClickable(WebDriver driver, String locatorType) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		WebDriverWait explicitWait = new WebDriverWait(driver, LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(locatorType)));
 	}
 	
 	public void waitForElementClickable(WebDriver driver, String locatorType, String... dynamicValues) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		WebDriverWait explicitWait = new WebDriverWait(driver, LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(getDynamicXpath(locatorType, dynamicValues))));
 	}
 	
-	
-	//private long GlobalConstants.LONG_TIMEOUT = 20;
 	
 	public void sleepInSecond(long timeInSecond) {
 		try {
@@ -600,5 +653,8 @@ public  class BasePage {
 		clickToElement(driver, BasePageUI.ADMIN_LOGOUT_LINK);
 		return PageGeneratorManager.getAdminLoginPage(driver);	
 	}
+	
+	private long LONG_TIMEOUT = GlobalConstants.LONG_TIMEOUT;
+	private long SHORT_TIMEOUT = GlobalConstants.SHORT_TIMEOUT;
 }
 

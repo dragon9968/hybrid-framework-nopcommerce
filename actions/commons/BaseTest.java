@@ -3,16 +3,25 @@ package commons;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.Reporter;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
 	private WebDriver driverBaseTest;
-	//private String projectPath = System.getProperty("user.dir");
+	protected final Log log;
+	
+	protected BaseTest() {
+		log = LogFactory.getLog(getClass());
+		
+	}
 	
 	public WebDriver getBrowserName(String browserName) {
 		if (browserName.equalsIgnoreCase("fireFox")) {
@@ -62,11 +71,63 @@ public class BaseTest {
 			throw new RuntimeException("Browser name is invalid");
 		}
 		
-		driverBaseTest.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driverBaseTest.manage().timeouts().implicitlyWait(GlobalConstants.LONG_TIMEOUT, TimeUnit.SECONDS);
 		driverBaseTest.get(appUrl);
 
 		return driverBaseTest;
 	}
+	
+	public boolean verifyTrue(boolean condition) {
+		boolean pass = true;
+		try {
+			Assert.assertTrue(condition);
+			System.out.println(" -------------------------- PASSED -------------------------- ");
+
+		} catch (Throwable e) {
+			System.out.println(" -------------------------- FAILED -------------------------- ");
+			pass = false;
+
+			// Add lỗi vào ReportNG
+			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
+			Reporter.getCurrentTestResult().setThrowable(e);
+		}
+		return pass;
+	}
+
+
+	public boolean verifyFalse(boolean condition) {
+		boolean pass = true;
+		try {
+			Assert.assertFalse(condition);
+			System.out.println(" -------------------------- PASSED -------------------------- ");
+			
+		} catch (Throwable e) {
+			System.out.println(" -------------------------- FAILED -------------------------- ");
+			pass = false;
+			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
+			Reporter.getCurrentTestResult().setThrowable(e);
+		}
+		return pass;
+	}
+
+	
+
+	public boolean verifyEquals(Object actual, Object expected) {
+		boolean pass = true;
+		try {
+			Assert.assertEquals(actual, expected);
+			System.out.println(" -------------------------- PASSED -------------------------- ");
+		} catch (Throwable e) {
+			pass = false;
+			System.out.println(" -------------------------- FAILED -------------------------- ");
+			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
+			Reporter.getCurrentTestResult().setThrowable(e);
+		}
+		return pass;
+	}
+
+
+	
 	
 	protected int generateRandomNumber() {
 		Random rand = new Random();
