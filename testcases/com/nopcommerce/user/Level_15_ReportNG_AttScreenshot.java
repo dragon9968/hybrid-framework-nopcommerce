@@ -27,9 +27,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class Level_12_Assert_Verify extends BaseTest {
+public class Level_15_ReportNG_AttScreenshot extends BaseTest {
 	private WebDriver driver;
-	private String existingEmail, invalidEmail, notFoundEmail, firstName, lastName;
+	private String existingEmail, invalidEmail, notFoundEmail, firstName, lastName , password;
 	//private String projectPath = System.getProperty("user.dir");
 	private UserHomePageObject homePage;
 	private UserRegisterPageObject registerPage;
@@ -55,6 +55,7 @@ public class Level_12_Assert_Verify extends BaseTest {
 		firstName = "long";
 		lastName = "qa";
 		existingEmail = "long" + generateRandomNumber() + "@qa.team";
+		password = "123456";
 		invalidEmail = "long@123@";
 		notFoundEmail = "longdaica@qa.team";
 
@@ -63,80 +64,61 @@ public class Level_12_Assert_Verify extends BaseTest {
 	}
 
 	@Test
-	public void User_01_Register_Login() {
+	public void User_01_Register() {
+		log.info("Register - Step 01: Navigate to 'Register' Page");
 		registerPage = homePage.openRegisterPage();
 
-		registerPage.inputToFirstnameTextbox("firstName");
-		registerPage.inputToLastnameTextbox("lastName");
+		log.info("Register - Step 02: Enter to Firstname textbox with value is '" + firstName + "'");
+		registerPage.inputToFirstnameTextbox(firstName);
+		
+		log.info("Register - Step 03: Enter to Lastname textbox with value is '" + lastName + "'");
+		registerPage.inputToLastnameTextbox(lastName);
+		
+		log.info("Register - Step 04: Enter to Email textbox with value is '" + existingEmail + "'");
 		registerPage.inputToEmailTextbox(existingEmail);
-		registerPage.inputToPasswordTextbox("123456");
-		registerPage.inputToConfirmPasswordTextbox("123456");
-		registerPage.clickToRegisterButton();
-		verifyEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed..");
-		homePage = registerPage.clickToLogoutLink();
-	
-		loginPage = homePage.openLoginPage();
-		loginPage.inputToEmailTexbox(existingEmail);
-		loginPage.inputToPasswordTexbox("123456");
-		homePage = loginPage.clickToLoginButton();
-		verifyFalse(homePage.isMyAccountLinkDisplay());	
-
-		customerInfoPage = homePage.openMyAccountPage();
-		verifyFalse(customerInfoPage.isCustomerInfoTitleDisplay());	
-	}
-	
-	@Test
-	public void User_02_Switch_Page() {
-		// Customer Info -> Address
-		addressPage = customerInfoPage.openAddressesPage(driver);
-		sleepInSecond(1);
 		
-		// Address -> Rewards
-		rewardPage = addressPage.openRewardPointPage(driver);
-		sleepInSecond(1);
-		
-		// Rewards -> Customer Info
-		customerInfoPage = rewardPage.openCustomerInfoPage(driver);
-		sleepInSecond(1);
-		
-		// Customer Info -> Change Pass
-		changePassPage = customerInfoPage.openChangePassPage(driver);
-		sleepInSecond(1);
-		
-		// Change Pass -> My Product
-		myProductReviewPage = changePassPage.openMyProductPage(driver);
-		sleepInSecond(1);
-		
-		// My Product -> Download
-		downloadProductPage = myProductReviewPage.openDownLoadProductPage(driver);
-		sleepInSecond(1);
-	}
-	
-	@Test
-	public void User_03_Dynamic_Page_01() {
-		// Download-> Change Pass
-		changePassPage = (UserChangePassPageObject) downloadProductPage.openPagesAtMyAccountByName(driver, "Change password");
-		
-		// Change Pass -> Rewards
-		rewardPage = (UserRewardPageObject) changePassPage.openPagesAtMyAccountByName(driver, "Reward points");
-		sleepInSecond(1);
-	}
-	
-
-	public void User_04_Dynamic_Page_02() {
-		// Rewards -> Stock
-		 rewardPage.openDynamicMorePages(driver, "Back in stock subscriptions");
-		 stockPage = PageGeneratorManager.getStockPage(driver);	
+		log.info("Register - Step 05: Enter to Password textbox with value is '" + password + "'");
+        registerPage.inputToPasswordTextbox(password);
         
-		// Stock -> Orders
-		 stockPage.openDynamicMorePages(driver, "Orders");
-		 orderPage = PageGeneratorManager.getOrderPage(driver);
+		log.info("Register - Step 06: Enter to Confirm Password textbox with value is '" + password + "'");
+		registerPage.inputToConfirmPasswordTextbox(password);
+		
+		log.info("Register - Step 07: Click to 'Register' button");
+		registerPage.clickToRegisterButton();
+		
+		log.info("Register - Step 08: Verify register success message is displayed");
+		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed..");
+		
+		
 		
 	}
-
 	
+	@Test
+	public void User_02_Login() {
+		log.info("Login - Step 01: Navigate to 'Login' Page");
+		homePage = registerPage.clickToLogoutLink();
+		loginPage = homePage.openLoginPage();
+		
+		log.info("Login - Step 02: Enter to Email textbox with value is '" + existingEmail + "'");
+		loginPage.inputToEmailTexbox(existingEmail);
+		
+		log.info("Login - Step 03: Enter to Password textbox with value is '" + password + "'");
+		loginPage.inputToPasswordTexbox(password);
+		
+		log.info("Login - Step 04: Click to 'Login' button");
+		homePage = loginPage.clickToLoginButton();
+		
+		log.info("Login - Step 05: Verify 'My Account' link is displayed");
+		Assert.assertFalse(homePage.isMyAccountLinkDisplay());	
 
-
+		log.info("Login - Step 06: Navigate to 'My Account' Page");
+		customerInfoPage = homePage.openMyAccountPage();
+		
+		log.info("Login - Step 07: Verify 'Customer Info' title is displayed");
+		Assert.assertFalse(customerInfoPage.isCustomerInfoTitleDisplay());
+		
+	}
+		
 	@AfterClass
 	public void afterClass() {
 		// driver.quit();
