@@ -30,6 +30,7 @@ public class Level_03_Page_Object_02_Login extends BaseTest {
 	@BeforeClass
 	public void beforeClass(String browserName) {
 		// Home Page
+		driver = getBrowserName(browserName);
 		homePage = new UserHomePageObject(driver);
 
 		firstName = "long";
@@ -90,7 +91,7 @@ public class Level_03_Page_Object_02_Login extends BaseTest {
 
 	}
 
-	//@Test
+	@Test
 	public void Login_03_Email_Not_Found() {
 		homePage.openLoginPage();
 
@@ -104,7 +105,7 @@ public class Level_03_Page_Object_02_Login extends BaseTest {
 
 	}
 
-	//@Test
+	@Test
 	public void Login_04_Existing_Email_Empty_Password() {
 		homePage.openLoginPage();
 
@@ -119,7 +120,7 @@ public class Level_03_Page_Object_02_Login extends BaseTest {
 
 	}
 
-	//@Test
+	@Test
 	public void Login_05_Existing_Email_Incorrect_Password() {
 		homePage.openLoginPage();
 
@@ -134,7 +135,7 @@ public class Level_03_Page_Object_02_Login extends BaseTest {
 
 	}
 
-	//@Test
+	@Test
 	public void Login_06_Valid_Login() {
 		homePage.openLoginPage();
 
