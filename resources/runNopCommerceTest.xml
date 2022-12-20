@@ -15,26 +15,33 @@
   <test name="Run on Firefox">
      <parameter name = "browser" value = "firefox"/>
     <classes>  
-      <class name="com.nopcommerce.common.Common_01_Register_Cookie"/>
-      <class name="com.nopcommerce.user.Level_16_Share_Data_C"/>    
-         
+<class name="com.nopcommerce.user.Level_16_Share_Data_A"/>
+      <class name="com.nopcommerce.common.Common_01_Register_New_Account"/>        
     </classes>
   </test> 
-   <!-- <test name="Run on Chrome">
+  
+    <test name="Run on Chrome">
      <parameter name = "browser" value = "CHROME"/>
     <classes>
-      <class name="com.nopcommerce.user.Level_04_Mutiple_Browser"/>
-      <class name="com.nopcommerce.user.Level_03_Page_Object_02_Login"/>
+      <class name="com.nopcommerce.user.Level_16_Share_Data_A"/>
+      <class name="com.nopcommerce.common.Common_01_Register_New_Account"/>
     </classes>
-  </test>
-   <test name="Run on EDGE">
+  </test> 
+  
+  <!-- <test name="Run on EDGE">
      <parameter name = "browser" value = "edge"/>
     <classes>
       <class name="com.nopcommerce.user.Level_04_Mutiple_Browser"/>
       <class name="com.nopcommerce.user.Level_03_Page_Object_02_Login"/>
     </classes>
-  </test> -->
-   
+  </test>-->
+    <!--<test name="Run on IE">
+     <parameter name = "browser" value = "ie"/>
+    <classes>
+      <class name="com.nopcommerce.user.Level_18_Pattern_Object"/>
+     <class name="com.nopcommerce.user.Level_03_Page_Object_02_Login"/>
+    </classes
+  </test>-->
   
   
   

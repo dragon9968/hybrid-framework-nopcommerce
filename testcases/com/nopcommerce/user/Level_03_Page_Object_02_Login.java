@@ -58,6 +58,8 @@ public class Level_03_Page_Object_02_Login extends BaseTest {
 		System.out.println("Pre-Condition - Step 04: Verified success message displayed ");
 		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 
+		sleepInSecond(2);
+		
 		System.out.println("Pre-Condition - Step 05: Click to Logout link");
 		registerPage.clickToLogoutLink();
 

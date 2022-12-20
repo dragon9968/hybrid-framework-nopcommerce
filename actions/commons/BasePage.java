@@ -185,12 +185,28 @@ public  class BasePage {
 	}
 	
 	public void clickToElement(WebDriver driver, String locatorType) {
-		getWebElement(driver,locatorType).click();
+		if(driver.toString().contains("InternetExplorerDriver"))
+		{
+			clickToElementByJS(driver, locatorType);
+			sleepInSecond(SHORT_TIMEOUT);
+		}
+		else {
+			this.getWebElement(driver,locatorType).click();
+
+		}
 		
 	}
 	
 	public void clickToElement(WebDriver driver, String locatorType , String... dynamicValues) {
-		getWebElement(driver,getDynamicXpath(locatorType, dynamicValues)).click();
+		if(driver.toString().contains("InternetExplorerDriver"))
+		{
+			clickToElementByJS(driver, locatorType);
+			sleepInSecond(SHORT_TIMEOUT);
+		}
+		else {
+			this.getWebElement(driver,getDynamicXpath(locatorType, dynamicValues)).click();
+
+		}
 		
 	}
 	
@@ -648,9 +664,20 @@ public  class BasePage {
 		
 	}
 	
+	// Pattern Object
 	public void openDynamicMorePages(WebDriver driver, String pageName) {
 		waitForElementClickable(driver, BasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, pageName);
 		clickToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, pageName);
+	}
+	
+	public void inputToTextboxByID(WebDriver driver, String textboxID, String value) {
+		waitForElementVisible(driver, BasePageUI.DYNAMIC_TEXTBOX_BY_ID, textboxID);
+		sendkeyToElement(driver, BasePageUI.DYNAMIC_TEXTBOX_BY_ID, value, textboxID);
+	}
+	
+	public void clickToButtonByText(WebDriver driver, String buttonText) {
+		waitForElementClickable(driver, BasePageUI.DYNAMIC_BUTTON_BY_TEXT, buttonText);
+		clickToElement(driver, BasePageUI.DYNAMIC_BUTTON_BY_TEXT, buttonText);
 	}
 	
 	// Level 08 - Switch Role

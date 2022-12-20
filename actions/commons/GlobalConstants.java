@@ -15,7 +15,7 @@ public class GlobalConstants {
 	public static final String DB_DEV_URL = "32.18.252.185:9806";
 	public static final String DB_DEV_USER = "automationfc";
 	public static final String DB_DEV_PASS = "P@ssw0rld1!";
-	public static final long SHORT_TIMEOUT = 5;
+	public static final long SHORT_TIMEOUT = 3;
 	public static final long LONG_TIMEOUT = 20;
 	public static final long RETRY_TEST_FAIL = 3;
 	

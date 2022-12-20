@@ -1,6 +1,9 @@
 package commons;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -8,8 +11,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeSuite;
@@ -35,22 +40,34 @@ public class BaseTest {
 	
 	public WebDriver getBrowserName(String browserName) {
 		if (browserName.equalsIgnoreCase("fireFox")) {
-			//System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver", GlobalConstants.PROJECT_PATH + "\\browserDrivers\\geckodriver.exe");
 			
 			//Dùng thư viện WebDriverManager để tải browser Driver về một cách tự động
-			WebDriverManager.firefoxdriver().setup();
+			//WebDriverManager.firefoxdriver().setup();
 			driverBaseTest = new FirefoxDriver();
 		} else if(browserName.equalsIgnoreCase("chrome")) {
 			//System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+			ChromeOptions options = new ChromeOptions();
+			options.setExperimentalOption("useAutomationExtension", false);
+			options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
 			
 			WebDriverManager.chromedriver().setup();
-			driverBaseTest = new ChromeDriver();
+			driverBaseTest = new ChromeDriver(options);
 		} else if(browserName.equalsIgnoreCase("edge")) {
 			//System.setProperty("webdriver.edge.driver", projectPath + "\\browserDrivers\\msedgedriver.exe");
 			
 			WebDriverManager.edgedriver().setup();
 			driverBaseTest = new EdgeDriver();
-		} else {
+
+	    } else if(browserName.equalsIgnoreCase("ie")) {
+		//System.setProperty("webdriver.edge.driver", projectPath + "\\browserDrivers\\msedgedriver.exe");
+		
+		WebDriverManager.iedriver().arch32().setup();
+		driverBaseTest = new InternetExplorerDriver();
+	    } 
+		
+		
+		else {
 			throw new RuntimeException("Browser name is invalid");
 		}
 		
@@ -171,5 +188,66 @@ public class BaseTest {
 			e.printStackTrace();
 		}
 		
+	}
+	protected void closeBrowserAndDriver() {
+		String cmd = "";
+		try {
+			String osName = System.getProperty("os.name").toLowerCase();
+			log.info("OS name = " + osName);
+
+			String driverInstanceName = driverBaseTest.toString().toLowerCase();
+			log.info("Driver instance name = " + driverInstanceName);
+
+			if (driverInstanceName.contains("chrome")) {
+				if (osName.contains("window")) {
+					cmd = "taskkill /F /FI \"IMAGENAME eq chromedriver*\"";
+				} else {
+					cmd = "pkill chromedriver";
+				}
+			} else if (driverInstanceName.contains("internetexplorer")) {
+				if (osName.contains("window")) {
+					cmd = "taskkill /F /FI \"IMAGENAME eq IEDriverServer*\"";
+				}
+			} else if (driverInstanceName.contains("firefox")) {
+				if (osName.contains("windows")) {
+					cmd = "taskkill /F /FI \"IMAGENAME eq geckodriver*\"";
+				} else {
+					cmd = "pkill geckodriver";
+				}
+			} else if (driverInstanceName.contains("edge")) {
+				if (osName.contains("window")) {
+					cmd = "taskkill /F /FI \"IMAGENAME eq msedgedriver*\"";
+				} else {
+					cmd = "pkill msedgedriver";
+				}
+			} else if (driverInstanceName.contains("opera")) {
+				if (osName.contains("window")) {
+					cmd = "taskkill /F /FI \"IMAGENAME eq operadriver*\"";
+				} else {
+					cmd = "pkill operadriver";
+				}
+			} else if (driverInstanceName.contains("safari")) {
+				if (osName.contains("mac")) {
+					cmd = "pkill safaridriver";
+				}
+			}
+
+			if (driverBaseTest != null) {
+				//IE: lưu lại các phiên đăng nhập trước đó (Khác Thread)
+				driverBaseTest.manage().deleteAllCookies();
+				driverBaseTest.quit();
+			}
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		} finally {
+			try {
+				Process process = Runtime.getRuntime().exec(cmd);
+				process.waitFor();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
