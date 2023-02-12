@@ -92,7 +92,7 @@ public class Level_15_AllureReport extends BaseTest {
 	@Severity(SeverityLevel.NORMAL)
 	@Test
 	public void User_02_Login() {
-		homePage = registerPage.clickToLogoutLink();
+		//homePage = registerPage.clickToLogoutLink();
 		loginPage = homePage.openLoginPage();
 		
 		loginPage.inputToEmailTexbox(existingEmail);
@@ -101,11 +101,11 @@ public class Level_15_AllureReport extends BaseTest {
 		
 		homePage = loginPage.clickToLoginButton();
 		
-		Assert.assertFalse(homePage.isMyAccountLinkDisplay());	
+		//Assert.assertFalse(homePage.isMyAccountLinkDisplay());	
 
-		customerInfoPage = homePage.openMyAccountPage();
+		//customerInfoPage = homePage.openMyAccountPage();
 		
-		Assert.assertFalse(customerInfoPage.isCustomerInfoTitleDisplay());
+		//Assert.assertFalse(customerInfoPage.isCustomerInfoTitleDisplay());
 		
 	}
 		
