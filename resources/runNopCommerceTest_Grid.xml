@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="false" name="NopCommerce_Grid">
+
+<listeners>
+   <listener class-name = "commons.MethodListener"/>
+     <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+     <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+        <listener class-name="reportConfig.ReportNGListener"/> 
+       <listener class-name="reportConfig.ExtentReportListenerV2"/> 
+        <listener class-name="reportConfig.AllureTestListener"/>
+      
+</listeners>
+
+<!--Global -->
+<parameter name="environment" value="dev"/>
+  <test name="Run on Firefox">
+     <parameter name = "browser" value = "firefox"/>
+      <parameter name="ipAddress" value="192.168.4.250" />
+        <parameter name="port" value="5555" />
+        <parameter name="osName" value="windows" />
+    <classes>  
+      <class name="com.nopcommerce.user.Level_20_Manage_Data_Part_I"/>
+    </classes>
+  </test> 
+  
+  <!-- 
+    <test name="Run on Chrome">
+     <parameter name = "browser" value = "CHROME"/>
+    <classes>
+      <class name="com.nopcommerce.user.Level_16_Share_Data_A"/>
+      <class name="com.nopcommerce.common.Common_01_Register_New_Account"/>
+    </classes>
+  </test> -->
+  
+  <!-- <test name="Run on EDGE">
+     <parameter name = "browser" value = "edge"/>
+    <classes>
+      <class name="com.nopcommerce.user.Level_04_Mutiple_Browser"/>
+      <class name="com.nopcommerce.user.Level_03_Page_Object_02_Login"/>
+    </classes>
+  </test>-->
+    <!--<test name="Run on IE">
+     <parameter name = "browser" value = "ie"/>
+    <classes>
+      <class name="com.nopcommerce.user.Level_18_Pattern_Object"/>
+     <class name="com.nopcommerce.user.Level_03_Page_Object_02_Login"/>
+    </classes
+  </test>-->
+  
+  
+  
+   <!-- Test -->
+</suite> <!-- Suite -->

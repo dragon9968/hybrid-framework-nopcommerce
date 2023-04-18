@@ -47,7 +47,6 @@
 	<classpathentry kind="lib" path="libWebDriverManager5.0.2/jackson-annotations-2.10.3.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager5.0.2/jackson-core-2.10.3.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager5.0.2/jackson-databind-2.10.3.jar"/>
-	<classpathentry kind="lib" path="libWebDriverManager5.0.2/jcl-over-slf4j-1.7.30.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager5.0.2/jna-5.8.0.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager5.0.2/jsoup-1.14.2.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager5.0.2/jsr305-3.0.2.jar"/>

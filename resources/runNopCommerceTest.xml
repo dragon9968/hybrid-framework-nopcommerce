@@ -11,11 +11,12 @@
       
 </listeners>
 
-
+<!--Global -->
+<parameter name="environment" value="staging"/>
   <test name="Run on Firefox">
      <parameter name = "browser" value = "firefox"/>
     <classes>  
-      <class name="com.nopcommerce.user.Level_15_AllureReport"/>
+      <class name="com.nopcommerce.user.Level_20_Manage_Data_Part_II"/>
     </classes>
   </test> 
   

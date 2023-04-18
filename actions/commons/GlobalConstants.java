@@ -18,5 +18,8 @@ public class GlobalConstants {
 	public static final long SHORT_TIMEOUT = 3;
 	public static final long LONG_TIMEOUT = 20;
 	public static final long RETRY_TEST_FAIL = 3;
+	public static final String BROWSER_USERNAME = "longnguyen9";
+	public static final String BROWSER_AUTOMATE_KEY = "zSyApKjqPrZqkUFnGgLt";
+	public static final String BROWSER_STACK_URL = "https://" + BROWSER_USERNAME +":"+ BROWSER_AUTOMATE_KEY + "@hub.browserstack.com/wd/hub";
 	
 }

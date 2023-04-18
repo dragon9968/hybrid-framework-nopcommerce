@@ -37,22 +37,18 @@ public class Level_20_Manage_Data_Part_I extends BaseTest {
 	private UserCustomerInfoPageObject customerInfoPage;
 
 	
-	@Parameters("browser")
+	@Parameters({"browser","environment","osName","ipAddress","port"})
 	@BeforeClass
-	public void beforeClass(String browserName) {
+	public void beforeClass(String browser, String environment, String osName , String ipAddress, String port ) {
 	
-        driver = getBrowserName(browserName);
+        driver = getBrowserName(browser, environment, osName, ipAddress, port);
         System.out.println("Driver is" + driver );
 		//homePage = new HomePageObject(driver);
         homePage = PageGeneratorManager.getHomePage(driver);
 		
-
-		
 		Email = UserData.Register.EMAIL + generateRandomNumber() + "@qa.team";
 		
-	
-
-		System.out.println("Pre-Condition - Step 01: Click to Register link");
+		//System.out.println("Pre-Condition - Step 01: Click to Register link");
 
 	}
 
@@ -83,8 +79,8 @@ public class Level_20_Manage_Data_Part_I extends BaseTest {
 		log.info("Register - Step 08: Verify register success message is displayed");
 		verifyEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 		
-		log.info("Register - Step 09: Click to Logout link");
-		homePage = registerPage.clickToLogoutLink();
+		//log.info("Register - Step 09: Click to Logout link");
+		//homePage = registerPage.clickToLogoutLink();
 		
 		
 	}
@@ -123,7 +119,7 @@ public class Level_20_Manage_Data_Part_I extends BaseTest {
 		
 	@AfterClass
 	public void afterClass() {
-		// driver.quit();
+		driver.quit();
 	}
 
 }

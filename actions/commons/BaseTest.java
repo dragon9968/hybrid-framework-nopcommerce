@@ -2,6 +2,8 @@ package commons;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
@@ -9,12 +11,17 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeSuite;
@@ -77,12 +84,12 @@ public class BaseTest {
 		return driverBaseTest;
 	}
 
-	public WebDriver getBrowserName(String browserName , String appUrl) {
+	public WebDriver getBrowserName(String browserName , String environmentName) {
 		if (browserName.equalsIgnoreCase("fireFox")) {
-			//System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
-
-            //Dùng thư viện WebDriverManager để tải browser Driver về một cách tự động
-			WebDriverManager.firefoxdriver().setup();
+			System.setProperty("webdriver.gecko.driver", GlobalConstants.PROJECT_PATH + "\\browserDrivers\\geckodriver.exe");
+			
+			//Dùng thư viện WebDriverManager để tải browser Driver về một cách tự động
+			//WebDriverManager.firefoxdriver().setup();
 			driverBaseTest = new FirefoxDriver();
 		} else if(browserName.equalsIgnoreCase("chrome")) {
 			//System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
@@ -99,13 +106,107 @@ public class BaseTest {
 		}
 		
 		driverBaseTest.manage().timeouts().implicitlyWait(GlobalConstants.LONG_TIMEOUT, TimeUnit.SECONDS);
-		driverBaseTest.get(appUrl);
+		driverBaseTest.get(getEnvironmentUrl(environmentName));
+		
+		return driverBaseTest;
+	}
+	
+	public WebDriver getBrowserName(String browserName , String environmentName, String osName, String ipAddress, String portNumber) {
+		DesiredCapabilities capability = null;
+		Platform platform = null;
+		
+		if (osName.contains("windows")) {
+			platform = Platform.WINDOWS;
+		} else {
+			platform = Platform.MAC;
+		}
+		
+		switch (browserName) {
+		case "firefox" :
+			capability = DesiredCapabilities.firefox();
+			capability.setBrowserName("firefox");
+			capability.setPlatform(platform);
+			
+			FirefoxOptions fOptions = new FirefoxOptions();
+			fOptions.merge(capability);
+			break;
+		case "chrome" :
+			capability = DesiredCapabilities.chrome();
+			capability.setBrowserName("chrome");
+			capability.setPlatform(platform);
+			
+			ChromeOptions cOptions = new ChromeOptions();
+			cOptions.merge(capability);
+			break;
+		case "edge" :
+			capability = DesiredCapabilities.edge();
+			capability.setBrowserName("edge");
+			capability.setPlatform(platform);
+			
+			EdgeOptions eOptions = new EdgeOptions();
+			eOptions.merge(capability);
+			break;
+		default :
+			throw new RuntimeException("Browser is not valid!");
+		}
+		
+		try {
+			driverBaseTest = new RemoteWebDriver(new URL(String.format("http://%s:%s/wd/hub", ipAddress, portNumber)), capability);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		driverBaseTest.manage().timeouts().implicitlyWait(GlobalConstants.LONG_TIMEOUT, TimeUnit.SECONDS);
+		driverBaseTest.get(getEnvironmentUrl(environmentName));
+		
+		return driverBaseTest;
+	}
+	
+	
+	public WebDriver getBrowserName_CloudTesting(String url, String osName, String osVersion , String browserName) {
+		DesiredCapabilities caps = new DesiredCapabilities();
+		caps.setCapability("os", osName);
+		caps.setCapability("os_version", osVersion);
+		caps.setCapability("browser", browserName);
+		caps.setCapability("browser_version", "latest");
+		caps.setCapability("resolution", "1920x1080");
+		caps.setCapability("browserstack.debug", "true");
+		caps.setCapability("project", "NoCommerce");
+		caps.setCapability("name","Run on" + osName + "|" + browserName );
 
+		try {
+			driverBaseTest = new RemoteWebDriver(new URL(GlobalConstants.BROWSER_STACK_URL), caps);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		driverBaseTest.manage().timeouts().implicitlyWait(GlobalConstants.LONG_TIMEOUT, TimeUnit.SECONDS);
+		driverBaseTest.get(url);
+		
 		return driverBaseTest;
 	}
 	
 	public WebDriver getDriverInstance() {
 		return this.driverBaseTest;
+	}
+	
+	protected String getEnvironmentUrl(String envName) {
+		String envUrl = null ;
+		EnvironmentList environment = EnvironmentList.valueOf(envName.toUpperCase());
+		if(environment == EnvironmentList.DEV)
+		{
+			envUrl = "https://demo.nopcommerce.com/";
+		}
+		else if (environment == EnvironmentList.TESTING) {
+			envUrl = "https://admin-demo.nopcommerce.com/";	
+		}
+		else if (environment == EnvironmentList.STAGING) {
+			envUrl = "https://vnexpress.net/";	
+		}
+		else if (environment == EnvironmentList.PRODUCTION) {
+			envUrl = "https://production.orangehrmlive.com/";	
+		}	
+		return envUrl;	
 	}
 	
 	public boolean verifyTrue(boolean condition) {

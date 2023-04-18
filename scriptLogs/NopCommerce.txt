@@ -1,0 +1,18 @@
+ [2023-04-03 09:52:05,308] Register - Step 01: Navigate to 'Register' Page
+ [2023-04-03 09:52:06,739] Register - Step 02: Enter to Firstname textbox with value is 'long'
+ [2023-04-03 09:52:06,953] Register - Step 03: Enter to Lastname textbox with value is 'nguyen86'
+ [2023-04-03 09:52:07,096] Register - Step 04: Enter to Email textbox with value is 'longnguyen25055@qa.team'
+ [2023-04-03 09:52:07,237] Register - Step 05: Enter to Password textbox with value is '123456'
+ [2023-04-03 09:52:07,363] Register - Step 06: Enter to Confirm Password textbox with value is '123456'
+ [2023-04-03 09:52:07,500] Register - Step 07: Click to 'Register' button
+ [2023-04-03 09:52:08,451] Register - Step 08: Verify register success message is displayed
+ [2023-04-03 09:52:08,539]  -------------------------- PASSED -------------------------- 
+ [2023-04-03 09:52:08,699] Login - Step 01: Navigate to 'Login' Page
+ [2023-04-03 09:52:09,258] Login - Step 02: Enter to Email textbox with value is 'longnguyen25055@qa.team'
+ [2023-04-03 09:52:09,402] Login - Step 03: Enter to Password textbox with value is '123456'
+ [2023-04-03 09:52:09,513] Login - Step 04: Click to 'Login' button
+ [2023-04-03 09:52:10,314] Login - Step 05: Verify 'My Account' link is displayed
+ [2023-04-03 09:52:10,461]  -------------------------- PASSED -------------------------- 
+ [2023-04-03 09:52:10,461] Login - Step 06: Navigate to 'My Account' Page
+ [2023-04-03 09:52:11,052] Login - Step 07: Verify 'Customer Info' title is displayed
+ [2023-04-03 09:52:11,162]  -------------------------- PASSED -------------------------- 
