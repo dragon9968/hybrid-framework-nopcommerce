@@ -17,7 +17,7 @@ public class HomePageObjectFactory extends BasePageFactory {
 	public HomePageObjectFactory(WebDriver driver) {
 		// super();
 		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		//PageFactory.initElements(driver, this);
 	}
 
 	@FindBy(xpath = "//a[@class='ico-register']")

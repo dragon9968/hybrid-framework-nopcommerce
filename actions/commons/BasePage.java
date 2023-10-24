@@ -35,7 +35,7 @@ import pageObjects.nopCommerce.user.UserRewardPageObject;
 import pageObjects.nopCommerce.user.UserStockPageObject;
 import pageUIs.nopCommerce.user.BasePageUI;
 
-public  class BasePage {
+public class BasePage {
 	
 	public static BasePage getBasePage() {
 		return new BasePage();
@@ -425,6 +425,11 @@ public  class BasePage {
  		action.moveToElement(getWebElement(driver, locatorType)).perform();
  	}
  	
+ 	public void doubleClickToElement(WebDriver driver, String locatorType) {
+ 		Actions action =  new Actions(driver);
+ 		action.doubleClick(getWebElement(driver, locatorType)).perform();
+ 	}
+ 	
  	public void pressKeyToElement(WebDriver driver, String locatorType, Keys key) {
  		Actions action =  new Actions(driver);
  		action.sendKeys(getWebElement(driver, locatorType),key).perform();
@@ -688,6 +693,7 @@ public  class BasePage {
 	}
 	
 	public AdminLoginPageObject clickToAdminLogoutLink(WebDriver driver) {
+		waitForElementInvisible(driver, BasePageUI.ADMIN_LOADING);
 		waitForElementClickable(driver, BasePageUI.ADMIN_LOGOUT_LINK);
 		clickToElement(driver, BasePageUI.ADMIN_LOGOUT_LINK);
 		return PageGeneratorManager.getAdminLoginPage(driver);	

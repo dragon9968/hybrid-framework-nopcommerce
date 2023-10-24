@@ -21,7 +21,7 @@ public class UserHomePageObject extends BasePage {
 	public UserRegisterPageObject openRegisterPage() {
 		waitForElementClickable(driver, HomePageUI.REGISTER_LINK);
 		clickToElement(driver, HomePageUI.REGISTER_LINK);
-		//return new RegisterPageObject(driver);
+		//return new UserRegisterPageObject(driver);
 		return PageGeneratorManager.getRegisterPage(driver);
 	}
 

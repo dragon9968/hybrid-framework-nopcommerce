@@ -2,30 +2,30 @@
 <suite parallel="false" name="NopCommerce">
 
 <listeners>
-   <listener class-name = "commons.MethodListener"/>
+   <!-- <listener class-name = "commons.MethodListener"/>
      <listener class-name="org.uncommons.reportng.HTMLReporter"/>
      <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
         <listener class-name="reportConfig.ReportNGListener"/> 
        <listener class-name="reportConfig.ExtentReportListenerV2"/> 
-        <listener class-name="reportConfig.AllureTestListener"/>
+        <listener class-name="reportConfig.AllureTestListener"/> -->
       
 </listeners>
 
 <!--Global -->
-<parameter name="environment" value="staging"/>
+ 
+ <parameter name="environment" value="staging"/>
   <test name="Run on Firefox">
      <parameter name = "browser" value = "firefox"/>
     <classes>  
-      <class name="com.nopcommerce.user.Level_20_Manage_Data_Part_II"/>
+      <class name="com.nopcommerce.user.Level_08_Switch_Role"/>
     </classes>
   </test> 
   
-  <!-- 
-    <test name="Run on Chrome">
+  
+   <!--  <test name="Run on Chrome">
      <parameter name = "browser" value = "CHROME"/>
     <classes>
-      <class name="com.nopcommerce.user.Level_16_Share_Data_A"/>
-      <class name="com.nopcommerce.common.Common_01_Register_New_Account"/>
+      <class name="com.nopcommerce.user.Level_09_Dynamic_Locator"/>
     </classes>
   </test> -->
   

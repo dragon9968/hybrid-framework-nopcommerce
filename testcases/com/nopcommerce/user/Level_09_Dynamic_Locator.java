@@ -73,7 +73,7 @@ public class Level_09_Dynamic_Locator extends BaseTest {
 		registerPage.inputToConfirmPasswordTextbox("123456");
 		registerPage.clickToRegisterButton();
 		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
-		homePage = registerPage.clickToLogoutLink();
+		//homePage = registerPage.clickToLogoutLink();
 	
 		loginPage = homePage.openLoginPage();
 		loginPage.inputToEmailTexbox(existingEmail);
@@ -90,27 +90,27 @@ public class Level_09_Dynamic_Locator extends BaseTest {
 	public void User_02_Switch_Page() {
 		// Customer Info -> Address
 		addressPage = customerInfoPage.openAddressesPage(driver);
-		sleepInSecond(1);
+		sleepInSecond(2);
 		
 		// Address -> Rewards
 		rewardPage = addressPage.openRewardPointPage(driver);
-		sleepInSecond(1);
+		sleepInSecond(2);
 		
 		// Rewards -> Customer Info
 		customerInfoPage = rewardPage.openCustomerInfoPage(driver);
-		sleepInSecond(1);
+		sleepInSecond(2);
 		
 		// Customer Info -> Change Pass
 		changePassPage = customerInfoPage.openChangePassPage(driver);
-		sleepInSecond(1);
+		sleepInSecond(2);
 		
 		// Change Pass -> My Product
 		myProductReviewPage = changePassPage.openMyProductPage(driver);
-		sleepInSecond(1);
+		sleepInSecond(2);
 		
 		// My Product -> Download
 		downloadProductPage = myProductReviewPage.openDownLoadProductPage(driver);
-		sleepInSecond(1);
+		sleepInSecond(2);
 	}
 	
 	
@@ -121,7 +121,7 @@ public class Level_09_Dynamic_Locator extends BaseTest {
 		
 		// Change Pass -> Rewards
 		rewardPage = (UserRewardPageObject) changePassPage.openPagesAtMyAccountByName(driver, "Reward points");
-		sleepInSecond(1);
+		sleepInSecond(2);
 	}
 	
 	@Test
@@ -129,7 +129,8 @@ public class Level_09_Dynamic_Locator extends BaseTest {
 		// Rewards -> Stock
 		 rewardPage.openDynamicMorePages(driver, "Back in stock subscriptions");
 		 stockPage = PageGeneratorManager.getStockPage(driver);	
-        
+			sleepInSecond(2);
+
 		// Stock -> Orders
 		 stockPage.openDynamicMorePages(driver, "Orders");
 		 orderPage = PageGeneratorManager.getOrderPage(driver);

@@ -23,6 +23,8 @@ public class Level_02_Apply_BasePage_III extends BasePage {
 	public void beforeClass() {
 		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 		driver = new FirefoxDriver();
+		System.out.println(driver.toString());
+		System.out.println(driver);
 
 		emailAddress = "long" + generateRandomNumber() + "@qa.team";
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);

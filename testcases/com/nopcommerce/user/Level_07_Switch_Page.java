@@ -97,27 +97,27 @@ public class Level_07_Switch_Page extends BaseTest {
 	public void User_04_Switch_User() {
 		// Customer Info -> Address
 		addressPage = customerInfoPage.openAddressesPage(driver);
-		sleepInSecond(1);
+		sleepInSecond(2);
 
 		// Address -> Rewards
 		rewardPage = addressPage.openRewardPointPage(driver);
-		sleepInSecond(1);
+		sleepInSecond(2);
 
 		// Rewards -> Customer Info
 		customerInfoPage = rewardPage.openCustomerInfoPage(driver);
-		sleepInSecond(1);
+		sleepInSecond(2);
 
 		// Customer Info -> Change Pass
 		changePassPage = customerInfoPage.openChangePassPage(driver);
-		sleepInSecond(1);
+		sleepInSecond(2);
 
 		// Change Pass -> My Product
 		myProductReviewPage = changePassPage.openMyProductPage(driver);
-		sleepInSecond(1);
+		sleepInSecond(2);
 
 		// My Product -> Download
 		downloadProductPage = myProductReviewPage.openDownLoadProductPage(driver);
-		sleepInSecond(1);
+		sleepInSecond(2);
 	}
 
 	

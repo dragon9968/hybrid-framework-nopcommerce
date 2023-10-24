@@ -53,12 +53,12 @@ public class BaseTest {
 			//WebDriverManager.firefoxdriver().setup();
 			driverBaseTest = new FirefoxDriver();
 		} else if(browserName.equalsIgnoreCase("chrome")) {
-			//System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", GlobalConstants.PROJECT_PATH + "\\browserDrivers\\chromedriver.exe");
 			ChromeOptions options = new ChromeOptions();
 			options.setExperimentalOption("useAutomationExtension", false);
 			options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
 			
-			WebDriverManager.chromedriver().setup();
+			//WebDriverManager.chromedriver().setup();
 			driverBaseTest = new ChromeDriver(options);
 		} else if(browserName.equalsIgnoreCase("edge")) {
 			//System.setProperty("webdriver.edge.driver", projectPath + "\\browserDrivers\\msedgedriver.exe");

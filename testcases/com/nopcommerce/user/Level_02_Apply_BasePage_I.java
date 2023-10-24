@@ -18,7 +18,7 @@ public class Level_02_Apply_BasePage_I {
 	String emailAddress;
 	String projectPath = System.getProperty("user.dir");
 
-	// Khai báo (Declare)
+	// (Declare) 
 	BasePage basePage;
 
 	@BeforeClass
@@ -26,7 +26,7 @@ public class Level_02_Apply_BasePage_I {
 		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 		driver = new FirefoxDriver();
 
-		// Khởi tạo (Initial)
+		// (Initial)
 		basePage = new BasePage();
 		
 
@@ -38,18 +38,18 @@ public class Level_02_Apply_BasePage_I {
 
 	@Test
 	public void TC_01_Register_Empty_Data() {
-		basePage.waitForElementClickable(driver, "//a[@class='ico-register']");
-		basePage.clickToElement(driver, "//a[@class='ico-register']");
+		basePage.waitForElementClickable(driver, "xpath=//a[@class='ico-register']");
+		basePage.clickToElement(driver, "xpath=//a[@class='ico-register']");
 
-		basePage.waitForElementClickable(driver, "//button[@id='register-button']");
-		basePage.clickToElement(driver, "//button[@id='register-button']");
+		basePage.waitForElementClickable(driver, "xpath=//button[@id='register-button']");
+		basePage.clickToElement(driver, "xpath=//button[@id='register-button']");
 
-		Assert.assertEquals(basePage.getElementText(driver, "//span[@id='FirstName-error']"),
+		Assert.assertEquals(basePage.getElementText(driver, "xpath=//span[@id='FirstName-error']"),
 				"First name is required.");
-		Assert.assertEquals(basePage.getElementText(driver, "//span[@id='LastName-error']"), "Last name is required.");
-		Assert.assertEquals(basePage.getElementText(driver, "//span[@id='Email-error']"), "Email is required.");
-		Assert.assertEquals(basePage.getElementText(driver, "//span[@id='Password-error']"), "Password is required.");
-		Assert.assertEquals(basePage.getElementText(driver, "//span[@id='ConfirmPassword-error']"),
+		Assert.assertEquals(basePage.getElementText(driver, "xpath=//span[@id='LastName-error']"), "Last name is required.");
+		Assert.assertEquals(basePage.getElementText(driver, "xpath=//span[@id='Email-error']"), "Email is required.");
+		Assert.assertEquals(basePage.getElementText(driver, "xpath=//span[@id='Password-error']"), "Password is required.");
+		Assert.assertEquals(basePage.getElementText(driver, "xpath=//span[@id='ConfirmPassword-error']"),
 				"Password is required.");
 	}
 

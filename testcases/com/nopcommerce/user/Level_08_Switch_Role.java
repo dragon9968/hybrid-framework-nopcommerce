@@ -66,11 +66,11 @@ public class Level_08_Switch_Role extends BaseTest {
 		userRegisterPage.inputToConfirmPasswordTextbox(userPassword);
 		System.out.println("Email registered is " + userEmail);
 		userRegisterPage.clickToRegisterButton();
-		userHomePage = userRegisterPage.clickToLogoutLink();
+		//userHomePage = userRegisterPage.clickToLogoutLink();
 	}
 
 	@Test
-	public void Role_01_User_To_Admin() {
+	public void Role_01_User_To_Admin() throws InterruptedException {
 		userLoginPage = userHomePage.openLoginPage();
 		userHomePage = userLoginPage.loginAsUser(userEmail, userPassword);
 		Assert.assertTrue(userHomePage.isMyAccountLinkDisplay());
@@ -82,8 +82,7 @@ public class Level_08_Switch_Role extends BaseTest {
 	    adminDashBoardPage= adminLoginPage.loginAsAdmin(adminEmail, adminPassword);
 	    
 	    // AdminDashBoardPage = PageGeneratorManager.getAdminDashboardPage(driver);   
-	    Assert.assertTrue(adminDashBoardPage.isDashBoardHeaderDisplay());
-	    
+	    Assert.assertTrue(adminDashBoardPage.isDashBoardHeaderDisplay());	    
 	    // Dashboard Page -> Logout -> Login Page
 	    adminDashBoardPage.clickToAdminLogoutLink(driver);
 
