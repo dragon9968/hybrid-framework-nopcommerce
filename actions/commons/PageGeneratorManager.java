@@ -11,10 +11,12 @@ import pageObjects.nopCommerce.user.UserDownloadProductsPageObject;
 import pageObjects.nopCommerce.user.UserMyProductReviewPageObject;
 import pageObjects.nopCommerce.user.UserOrdersPageObject;
 import pageObjects.nopCommerce.user.UserRegisterPageObject;
+import pageObjects.nopCommerce.user.UserRegisterPageObject_Techpanda;
 import pageObjects.nopCommerce.user.UserRewardPageObject;
 import pageObjects.nopCommerce.user.UserStockPageObject;
 import pageUIs.nopCommerce.admin.AdminLoginPageUI;
 import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserHomePageObject_Techpanda;
 import pageObjects.nopCommerce.user.UserLoginPageObject;
 
 public class PageGeneratorManager {
@@ -71,4 +73,13 @@ public class PageGeneratorManager {
 		return new AdminDashBoardPageObject(driver);
 	}
 
+	public static UserHomePageObject_Techpanda getHomePageTechPanda(WebDriver driver) {
+		return new UserHomePageObject_Techpanda(driver);
+	}
+	
+	public static UserRegisterPageObject_Techpanda getRegisterPageTechPanda(WebDriver driver) {
+		return new UserRegisterPageObject_Techpanda(driver);
+	}
+	
+	
 }

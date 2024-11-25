@@ -13,7 +13,7 @@ public class UserHomePageObject extends BasePage {
 	private WebDriver driver;
 
 	public UserHomePageObject(WebDriver driver) {
-		//super();
+		super();
 		this.driver = driver;
 	}
 
@@ -21,8 +21,8 @@ public class UserHomePageObject extends BasePage {
 	public UserRegisterPageObject openRegisterPage() {
 		waitForElementClickable(driver, HomePageUI.REGISTER_LINK);
 		clickToElement(driver, HomePageUI.REGISTER_LINK);
-		//return new UserRegisterPageObject(driver);
-		return PageGeneratorManager.getRegisterPage(driver);
+		return new UserRegisterPageObject(driver);
+		//return PageGeneratorManager.getRegisterPage(driver);
 	}
 
 	@Step("Navigate to Login Page")

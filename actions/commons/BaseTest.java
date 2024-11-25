@@ -57,6 +57,7 @@ public class BaseTest {
 			ChromeOptions options = new ChromeOptions();
 			options.setExperimentalOption("useAutomationExtension", false);
 			options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+
 			
 			//WebDriverManager.chromedriver().setup();
 			driverBaseTest = new ChromeDriver(options);
@@ -79,7 +80,9 @@ public class BaseTest {
 		}
 		
 		driverBaseTest.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		driverBaseTest.get(GlobalConstants.PORTAL_PAGE_URL);
+		driverBaseTest.get(GlobalConstants.TECHPANDA_PAGE_URL);
+		driverBaseTest.manage().window().maximize();
+
 		
 		return driverBaseTest;
 	}
