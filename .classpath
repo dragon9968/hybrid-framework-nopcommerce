@@ -11,8 +11,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libSelenium/testng-6.14.3.jar" sourcepath="libSelenium/testng-6.14.3-sources.jar"/>
-	<classpathentry kind="lib" path="libSelenium/testng-6.14.3-sources.jar"/>
 	<classpathentry kind="lib" path="libLog4j/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="libLog4j/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="libReportNG/guice-3.0.jar"/>
@@ -121,5 +119,7 @@
 	<classpathentry kind="lib" path="selenium-java-4.41.0/selenium-support-4.41.0.jar"/>
 	<classpathentry kind="lib" path="selenium-java-4.41.0/selenium-support-4.41.0-sources.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager5.0.2/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="libSelenium/testng-6.14.3.jar"/>
+	<classpathentry kind="lib" path="libSelenium/testng-6.14.3-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
