@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 import net.bytebuddy.asm.Advice.Return;
 
@@ -50,7 +51,7 @@ public class BasePageFactory {
 	}
 
 	public Alert waitForAlertPresence(WebDriver driver) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeout);
+		WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longtimeout));
 		return explicitWait.until(ExpectedConditions.alertIsPresent());
 	}
 
@@ -104,27 +105,27 @@ public class BasePageFactory {
 	}
 	
 	public void waitForElementVisible(WebDriver driver, WebElement element) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeout);
+		WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longtimeout));
 		explicitWait.until(ExpectedConditions.visibilityOf(element));
 	}
 	
 	public void waitForAllElementVisible(WebDriver driver, List<WebElement> elements) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeout);
+		WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longtimeout));
 		explicitWait.until(ExpectedConditions.visibilityOfAllElements(elements));
 	}
 	
 	public void waitForElementInvisible(WebDriver driver, WebElement element) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeout);
+		WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longtimeout));
 		explicitWait.until(ExpectedConditions.invisibilityOf(element));
 	}
 	
 	public void waitForAllElementInvisible(WebDriver driver, List<WebElement> elements) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeout);
+		WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longtimeout));
 		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(elements));
 	}
 	
 	public void waitForElementClickable(WebDriver driver, WebElement element) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, longtimeout);
+		WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longtimeout));
 		explicitWait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 	

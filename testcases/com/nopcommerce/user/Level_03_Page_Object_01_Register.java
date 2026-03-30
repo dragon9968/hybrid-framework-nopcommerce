@@ -8,6 +8,7 @@ import pageObjects.nopCommerce.user.UserRegisterPageObject;
 
 import org.testng.annotations.BeforeClass;
 
+import java.time.Duration;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -34,7 +35,7 @@ public class Level_03_Page_Object_01_Register{
 		// Home Page
         homePage = new UserHomePageObject(driver);
 		emailAddress = "long" + generateRandomNumber() + "@qa.team";
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 	    driver.manage().window().maximize();
 		driver.get("https://demo.nopcommerce.com/");
 	}

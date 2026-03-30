@@ -3,6 +3,7 @@ package com.nopcommerce.user;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
 
+import java.time.Duration;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +31,7 @@ public class Level_02_Apply_BasePage_II {
 		basePage = BasePage.getBasePage();
 
 		emailAddress = "long" + generateRandomNumber() + "@qa.team";
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		// driver.manage().window().maximize();
 		driver.get("https://demo.nopcommerce.com/");
 	}
