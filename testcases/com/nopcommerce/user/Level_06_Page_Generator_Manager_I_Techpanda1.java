@@ -64,6 +64,7 @@ public class Level_06_Page_Generator_Manager_I_Techpanda1 extends BaseTest{
 		Assert.assertEquals(registerPage.getErrorMessageAtEmailTextbox(), "This is a required field.");
 		Assert.assertEquals(registerPage.getErrorMessageAtPasswordTextbox(), "This is a required field.");
 		Assert.assertEquals(registerPage.getErrorMessageAtConfirmPasswordTextbox(), "This is a required field.");
+		
 	}
 
 	//@Test
@@ -147,6 +148,30 @@ public class Level_06_Page_Generator_Manager_I_Techpanda1 extends BaseTest{
 
 	}
 
+	// New test: password less than 6 characters
+	@Test
+	public void Register_05_Password_Less_Than_6() {
+		System.out.println("Register_05 - Step 01: Click to Register link");
+		homePage.openRegisterPage();
+		
+		// Get Register Page object via Page Generator
+		registerPage = PageGeneratorManager.getRegisterPageTechPanda(driver_Test_Case);
+
+		System.out.println("Register_05 - Step 02: Input to required fields");
+		registerPage.inputToFirstnameTextbox("long");
+		registerPage.inputToLastnameTextbox("nguyen");
+		registerPage.inputToEmailTextbox(emailAddress);
+		registerPage.inputToPasswordTextbox("123");
+		registerPage.inputToConfirmPasswordTextbox("123");
+
+		System.out.println("Register_05 - Step 03: Click Register button ");
+		registerPage.clickToRegisterButton();
+
+		System.out.println("Register_05 - Step 04: Verify error message displayed");
+		Assert.assertEquals(registerPage.getErrorMessageAtPasswordTextbox(),
+				"Password must meet the following rules:\nmust have at least 6 characters");
+
+	}
 
 
 	public int generateRandomNumber() {
